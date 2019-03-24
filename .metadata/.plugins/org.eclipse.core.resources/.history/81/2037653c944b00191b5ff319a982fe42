@@ -1,0 +1,23 @@
+package com.example.testezao.resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.testezao.Repositories.CategoriaRepository;
+import com.example.testezao.model.Categoria;
+
+@RestController
+@RequestMapping(value ="/categorias")
+public class CategoriaResource {
+    
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	
+	public ResponseEntity<void> createCategoria(@RequestBody Categoria categoria) {
+		categoriaRepository.save(categoria);
+	
+	}
+}

@@ -1,0 +1,45 @@
+package com.example.testezao.resource;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.testezao.Repositories.CategoriaRepository;
+import com.example.testezao.model.Categoria;
+import com.example.testezao.service.CategoriaService;
+
+@RestController
+@RequestMapping(value = "/categorias")
+public class CategoriaResource {
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private CategoriaService service;
+
+	@RequestMapping(method = RequestMethod.POST)
+	public void createCategoria(@RequestBody List<Categoria> categorias) {
+	System.out.println(categorias.get(0).getProdutos());
+		categoriaRepository.saveAll(categorias);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Categoria>> getAll() {
+		return ResponseEntity.ok(categoriaRepository.findAll());
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Optional<List<Categoria>>> getPorId(@PathVariable int id) {
+
+		Optional<List<Categoria>> categoria = Optional.of(service.getById(id));
+		return ResponseEntity.ok(categoria);
+	}
+}

@@ -1,0 +1,6 @@
+package com.example.testezao.resource;
+@RestController
+@RequestMapping(value ="/produtos")
+public class ProdutoResource {
+
+}
